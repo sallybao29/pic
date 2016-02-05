@@ -11,7 +11,7 @@ int randint(){
   int i;
   int f = open("/dev/urandom", O_RDONLY);
   if (f < 0)
-    printf("error %d: %s\n", errno, strerror(errno));
+    printf("Error %d: %s\n", errno, strerror(errno));
   else
 		read(f, &i, sizeof(int));
   close(f);
@@ -33,9 +33,9 @@ int main(){
 	rand = (abs(randint())) % 256;
 	for (i = 0; i < 500; i++){
 		for (j = 0; j < 500; j++){
-			r = (rand * (int)(sin((double)(i)))) % 256;
-			g = (rand * (int)(cos((double)(j)))) % 256;
-			b = (((int)(pow((double)i, 2) + pow((double)j, 2)))) % 256;
+			r = (rand + (int)(sin((double)j) + cos((double)j))) % 256;
+			g = (i * j + rand) % 256;
+			b = (((int)(pow((double)(i + 5), 2) + pow((double)(j + 5), 2)))) % 256;
 			
 			sprintf(buff, "%d %d %d ", r, g, b);
 			write(fd, buff, strlen(buff));
